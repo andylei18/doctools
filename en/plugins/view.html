@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <title>egg-view - index.slogan</title>
+  <meta charset="utf-8">
+  <meta name="description" content="index.description">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+<link rel="stylesheet" href="/css/index.css">
+
+</head>
+<body>
+  <div class="nav" >
+  <header>
+    <a href="/zh-cn/" class="nav-logo leftpadding" alt="egg"><img src="https://zos.alipayobjects.com/rmsportal/VTcUYAaoKqXyHJbLAPyF.svg"></a>
+    <ul class="nav-item">
+      <li>
+        <form id="search-form">
+          <input type="text" id="search-query" class="search-query st-default-search-input">
+        </form>
+      </li>
+      
+      
+      
+        <li class="translations">
+          <a class="nav-link">header.translations</a>
+          <span class="arrow"></span><ul id="dropdownContent" class="dropdown-content"><li><a id="zh-cn" href="/zh-cn/en/plugins/view.html" style="color: #22ab28">中文</a></li><li><a id="en" href="/en/en/plugins/view.html" >English</a></li></ul>
+        </li>
+      
+      <li><iframe src="https://ghbtns.com/github-btn.html?user=eggjs&repo=egg&type=star&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe></li>
+    </ul>
+    <a id="mobileTrigger" href="#" class="mobile-trigger">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </a>
+  </header>
+</div>
+  <div id="container" class="container">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>egg-view</h1>
+    <p><a href="https://npmjs.org/package/egg-view" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/egg-view.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://travis-ci.org/eggjs/egg-view" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/eggjs/egg-view.svg?style=flat-square" alt="build status"></a>
+<a href="https://codecov.io/github/eggjs/egg-view?branch=master" target="_blank" rel="noopener"><img src="https://img.shields.io/codecov/c/github/eggjs/egg-view.svg?style=flat-square" alt="Test coverage"></a>
+<a href="https://david-dm.org/eggjs/egg-view" target="_blank" rel="noopener"><img src="https://img.shields.io/david/eggjs/egg-view.svg?style=flat-square" alt="David deps"></a>
+<a href="https://snyk.io/test/npm/egg-view" target="_blank" rel="noopener"><img src="https://snyk.io/test/npm/egg-view/badge.svg?style=flat-square" alt="Known Vulnerabilities"></a>
+<a href="https://npmjs.org/package/egg-view" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/egg-view.svg?style=flat-square" alt="npm download"></a></p>
+<p>Base view plugin for egg</p>
+<p><strong>it's a plugin that has been built-in for egg.</strong></p>
+<h2 id="install"><a class="markdown-anchor" href="#install">#</a> Install</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm i egg-view --save</span><br></pre></td></tr></table></figure>
+<h2 id="usage"><a class="markdown-anchor" href="#usage">#</a> Usage</h2>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// &#123;app_root&#125;/config/plugin.js</span></span><br><span class="line">exports.view = &#123;</span><br><span class="line">  enable: <span class="literal">true</span>,</span><br><span class="line">  package: <span class="string">'egg-view'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="use-a-template-engine"><a class="markdown-anchor" href="#use-a-template-engine">#</a> Use a template engine</h2>
+<p><a href="https://github.com/eggjs/egg-view" target="_blank" rel="noopener">egg-view</a> don't have build-in view engine, So you should choose a template engine like <a href="https://github.com/mde/ejs" target="_blank" rel="noopener">ejs</a>, and install <a href="https://github.com/eggjs/egg-view-ejs" target="_blank" rel="noopener">egg-view-ejs</a> plugin.</p>
+<p>You can choose a template engine first, link <a href="https://github.com/mde/ejs" target="_blank" rel="noopener">ejs</a>, so we use <a href="https://github.com/eggjs/egg-view-ejs" target="_blank" rel="noopener">egg-view-ejs</a> plugin.</p>
+<p><code>egg-view</code> is in <a href="https://eggjs.org">eggjs</a>, so you just need configure <a href="https://github.com/eggjs/egg-view-ejs" target="_blank" rel="noopener">egg-view-ejs</a>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/plugin.js</span></span><br><span class="line">exports.ejs = &#123;</span><br><span class="line">  enable: <span class="literal">true</span>,</span><br><span class="line">  package: <span class="string">'egg-view-ejs'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Configure the mapping, the file with <code>.ejs</code> extension will be rendered by ejs.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line">exports.view = &#123;</span><br><span class="line">  mapping: &#123;</span><br><span class="line">    <span class="string">'.ejs'</span>: <span class="string">'ejs'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>In controller, you can call <code>ctx.render</code>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">app</span>.<span class="title">Controller</span> </span>&#123;</span><br><span class="line">    * list() &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; ctx &#125; = <span class="keyword">this</span>;</span><br><span class="line">      <span class="keyword">yield</span> ctx.render(<span class="string">'user.ejs'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>If you call <code>ctx.renderString</code>, you should specify viewEngine in viewOptions.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">app</span>.<span class="title">Controller</span> </span>&#123;</span><br><span class="line">    * list() &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; ctx &#125; = <span class="keyword">this</span>;</span><br><span class="line">      ctx.body = <span class="keyword">yield</span> ctx.renderString(<span class="string">'&lt;%= user %&gt;'</span>, &#123; <span class="attr">user</span>: <span class="string">'popomore'</span> &#125;, &#123;</span><br><span class="line">        viewEngine: <span class="string">'ejs'</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="use-multiple-view-engine"><a class="markdown-anchor" href="#use-multiple-view-engine">#</a> Use multiple view engine</h2>
+<p><a href="https://github.com/eggjs/egg-view" target="_blank" rel="noopener">egg-view</a> support multiple view engine, so you can use more than one template engine in one application.</p>
+<p>If you want add another template engine like <a href="http://mozilla.github.io/nunjucks" target="_blank" rel="noopener">nunjucks</a>, then you can add <a href="https://github.com/eggjs/egg-view-nunjucks" target="_blank" rel="noopener">egg-view-nunjucks</a> plugin.</p>
+<p>Configure the plugin and mapping</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line">exports.view = &#123;</span><br><span class="line">  mapping: &#123;</span><br><span class="line">    <span class="string">'.ejs'</span>: <span class="string">'ejs'</span>,</span><br><span class="line">    <span class="string">'.nj'</span>: <span class="string">'nunjucks'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>You can simply render the file with <code>.nj</code> extension.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">yield</span> ctx.render(<span class="string">'user.nj'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="how-to-write-a-view-plugin"><a class="markdown-anchor" href="#how-to-write-a-view-plugin">#</a> How to write a view plugin</h2>
+<p>You can use <a href="https://github.com/eggjs/egg-view" target="_blank" rel="noopener">egg-view</a>' API to register a plugin.</p>
+<h3 id="view-engine"><a class="markdown-anchor" href="#view-engine">#</a> View engine</h3>
+<p>Create a view engine class first, and implement <code>render</code> and <code>renderString</code>, if the template engine don't support, just throw an error. The view engine is context level, so it receive ctx in <code>constructor</code>.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// lib/view.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="class"><span class="keyword">class</span> <span class="title">MyView</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(ctx) &#123;</span><br><span class="line">    <span class="comment">// do some initialize</span></span><br><span class="line">    <span class="comment">// get the plugin config from `ctx.app.config`</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  * render(fullpath, locals) &#123;</span><br><span class="line">    <span class="keyword">return</span> myengine.render(fullpath, locals);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  * renderString() &#123; <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'not implement'</span>); &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>render</code> and <code>renderString</code> support generator function, async function, or normal function return a promise.</p>
+<p>If the template engine only support callback, you can wrap it by Promise.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyView</span> </span>&#123;</span><br><span class="line">  render(fullpath, locals) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      myengine.render(fullpath, locals, (err, result) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">          reject(err);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          resolve(result);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>These methods receive three arguments, <code>renderString</code> will pass tpl as the first argument instead of name in <code>render</code>.</p>
+<p><code>render(name, locals, viewOptions)</code></p>
+<ul>
+<li>name: the file path that can resolve from root (<code>app/view</code> by default)</li>
+<li>locals: data used by template</li>
+<li>viewOptions: the view options for each render, it can override the view default config in <code>config/config.default.js</code>. Plugin should implement it if it has config.
+When you implement view engine, you will receive this options from <code>render</code>, the options contain:
+<ul>
+<li>root: egg-view will resolve the name to full path, but seperating root and name in viewOptions.</li>
+<li>name: the original name when call render</li>
+</ul>
+</li>
+</ul>
+<p><code>renderString(tpl, locals, viewOptions)</code></p>
+<ul>
+<li>tpl: the template string instead of the file, using in <code>renderString</code></li>
+<li>locals: same as <code>render</code></li>
+<li>viewOptions: same as <code>render</code></li>
+</ul>
+<h3 id="register"><a class="markdown-anchor" href="#register">#</a> Register</h3>
+<p>After define a view engine, you can register it.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  app.view.use(<span class="string">'myName'</span>, <span class="built_in">require</span>(<span class="string">'./lib/view'</span>));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>You can define a view engine name, normally it's a template name.</p>
+<h3 id="configure"><a class="markdown-anchor" href="#configure">#</a> Configure</h3>
+<p>Define plugin name and depend on <a href="https://github.com/eggjs/egg-view" target="_blank" rel="noopener">egg-view</a></p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"eggPlugin"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"myName"</span>,</span><br><span class="line">    <span class="attr">"dependencies"</span>: [ <span class="string">"view"</span> ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Set default config in <code>config/config.default.js</code>, the name is equals to plugin name.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">exports.myName = &#123;&#125;,</span><br></pre></td></tr></table></figure>
+<p>See some examples</p>
+<ul>
+<li><a href="https://github.com/eggjs/egg-view-ejs" target="_blank" rel="noopener">egg-view-ejs</a></li>
+<li><a href="https://github.com/eggjs/egg-view-nunjucks" target="_blank" rel="noopener">egg-view-nunjucks</a></li>
+</ul>
+<h2 id="configuration"><a class="markdown-anchor" href="#configuration">#</a> Configuration</h2>
+<h3 id="root"><a class="markdown-anchor" href="#root">#</a> Root</h3>
+<p>Root is <code>${baseDir}/app/view</code> by default, but you can define multiple directory, seperated by <code>,</code>. <a href="https://github.com/eggjs/egg-view" target="_blank" rel="noopener">egg-view</a> will find a file from all root directories.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">appInfo</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> baseDir = appInfo.baseDir;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    view: &#123;</span><br><span class="line">      root: <span class="string">`<span class="subst">$&#123;baseDir&#125;</span>/app/view,<span class="subst">$&#123;baseDir&#125;</span>/app/view2`</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="defaultextension"><a class="markdown-anchor" href="#defaultextension">#</a> defaultExtension</h3>
+<p>When render a file, you should specify a extension that let <a href="https://github.com/eggjs/egg-view" target="_blank" rel="noopener">egg-view</a> know whitch engine you want to use. However you can define <code>defaultExtension</code> without write the extension.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line">exports.view = &#123;</span><br><span class="line">  defaultExtension: <span class="string">'.html'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// controller</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">app</span>.<span class="title">Controller</span> </span>&#123;</span><br><span class="line">    * list() &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; ctx &#125; = <span class="keyword">this</span>;</span><br><span class="line">      <span class="comment">// render user.html</span></span><br><span class="line">      <span class="keyword">yield</span> ctx.render(<span class="string">'user'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="viewengine-and-defaultviewengine"><a class="markdown-anchor" href="#viewengine-and-defaultviewengine">#</a> viewEngine and defaultViewEngine</h3>
+<p>If you are using <code>renderString</code>, you should specify viewEngine in view config, see example above.</p>
+<p>However, you can define <code>defaultViewEngine</code> without set each time.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line">exports.view = &#123;</span><br><span class="line">  defaultViewEngine: <span class="string">'ejs'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>see <a href="https://github.com/eggjs/egg-view/blob/master/config/config.default.js" target="_blank" rel="noopener">config/config.default.js</a> for more detail.</p>
+<h2 id="questions-suggestions"><a class="markdown-anchor" href="#questions-suggestions">#</a> Questions &amp; Suggestions</h2>
+<p>Please open an issue <a href="https://github.com/eggjs/egg/issues" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="license"><a class="markdown-anchor" href="#license">#</a> License</h2>
+<p><a href="https://github.com/eggjs/egg-view/blob/master/LICENSE" target="_blank" rel="noopener">MIT</a></p>
+
+  </article>
+  <aside id="mobileAside" class="toc">
+  <div class="mobile-menu">
+    <ul>
+      
+      
+      
+        <li class="translations">
+          <a class="nav-link">header.translations</a>
+          <span class="arrow"></span><ul id="dropdownContent" class="dropdown-content"><li><a id="zh-cn" href="/zh-cn/en/plugins/view.html" style="color: #22ab28">中文</a></li><li><a id="en" href="/en/en/plugins/view.html" >English</a></li></ul>
+        </li>
+      
+    </ul>
+  </div>
+  <dl><dt id="title-Intro" style="cursor: pointer;" class="aside-title">Intro<a id="collapse-icon-Intro" class="icon opend"></a></dt><dd id=panel-Intro><ul><li><a href="/zh-cn/intro/index.html" class="menu-link">What is Egg</a></li></ul></dd></dl>
+</aside>
+<script>
+var mobileTrigger = document.getElementById('mobileTrigger');
+var mobileAside = document.getElementById('mobileAside');
+
+var expandMenu = function(title) {
+  // handle icon
+  const collapseIcon = document.getElementById('collapse-icon-' + title);
+  if (collapseIcon) {
+    collapseIcon.className = 'icon opend';
+  }
+  // handle panelEle
+  const panelEle = document.getElementById('panel-' + title);
+  if (panelEle) {
+    panelEle.className = '';
+  }
+}
+
+var collapseMenu = function(title) {
+  // handle icon
+  const collapseIcon = document.getElementById('collapse-icon-' + title);
+  if (collapseIcon) {
+    collapseIcon.className = 'icon closed';
+  }
+  // handle panelEle
+  const panelEle = document.getElementById('panel-' + title);
+  if (panelEle) {
+    panelEle.className = 'aside-panel-hidden';
+  }
+}
+
+mobileAside.onclick = function(e) {
+  const targetId = e.target.id;
+  if (targetId && (targetId.indexOf('title-') > -1 || targetId.indexOf('collapse-icon-') > -1)) {
+    const title = targetId.replace('title-', '').replace('collapse-icon-', '');
+    try { 
+      // the the browser may have no localStroage or JSON.parse may throw exception.
+      const menuInfo = JSON.parse(window.localStorage.getItem('menuInfo'));
+        
+      // current menu status
+      const curClosed = menuInfo[title] ? menuInfo[title].closed : false; // default false
+
+      // change UI
+      curClosed ? expandMenu(title) : collapseMenu(title);
+
+      // save menuInfo to localStorage
+      menuInfo[title] = { closed: !curClosed } // opposite
+      window.localStorage.setItem('menuInfo', JSON.stringify(menuInfo));
+    } catch (e) {}
+  }
+};
+
+mobileTrigger.onclick = function(e) {
+  e.preventDefault();
+  if (mobileAside.className.indexOf('mobile-show') === -1) {
+    mobileAside.className += ' mobile-show';
+  } else {
+    mobileAside.className = 'toc';
+  }
+};
+
+(function() {
+  // save data to localStorage because the page will refresh when user change the url.
+  let menuInfo;
+  try { 
+    // the the browser may have no localStroage or JSON.parse may throw exception.
+    menuInfo = JSON.parse(window.localStorage.getItem('menuInfo'));
+    if (!menuInfo) {
+      menuInfo = {};
+      window.localStorage.setItem('menuInfo', JSON.stringify(menuInfo));
+    }
+  } catch (e) {
+    menuInfo = {}; // default {}
+  }
+
+  for (const title in menuInfo) {
+    if (menuInfo[title] && menuInfo[title].closed) { // menu in closed status.
+      collapseMenu(title);
+    } else {
+      expandMenu(title);
+    }
+  }
+
+  // highlight menu
+  const pathname = window.location.pathname;
+  const selector = `a[href="${pathname}"].menu-link,a[href="${pathname}index.html"].menu-link`;
+  const menuItem = mobileAside.querySelector(selector);
+  if (menuItem) { menuItem.className += ' highlight'; }
+})();
+</script>
+
+</div>
+
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+<script>
+docsearch({
+  apiKey: '1561de31a86f79507ea00cdb54ce647c',
+  indexName: 'eggjs',
+  inputSelector: '#search-query',
+});
+</script>
+<div class="cnzz">
+<script src="https://s11.cnzz.com/z_stat.php?id=1261142226&web_id=1261142226" language="JavaScript"></script>
+</div>
+
+</html>

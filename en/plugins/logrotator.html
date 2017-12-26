@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <title>egg-logrotator - index.slogan</title>
+  <meta charset="utf-8">
+  <meta name="description" content="index.description">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+<link rel="stylesheet" href="/css/index.css">
+
+</head>
+<body>
+  <div class="nav" >
+  <header>
+    <a href="/zh-cn/" class="nav-logo leftpadding" alt="egg"><img src="https://zos.alipayobjects.com/rmsportal/VTcUYAaoKqXyHJbLAPyF.svg"></a>
+    <ul class="nav-item">
+      <li>
+        <form id="search-form">
+          <input type="text" id="search-query" class="search-query st-default-search-input">
+        </form>
+      </li>
+      
+      
+      
+        <li class="translations">
+          <a class="nav-link">header.translations</a>
+          <span class="arrow"></span><ul id="dropdownContent" class="dropdown-content"><li><a id="zh-cn" href="/zh-cn/en/plugins/logrotator.html" style="color: #22ab28">中文</a></li><li><a id="en" href="/en/en/plugins/logrotator.html" >English</a></li></ul>
+        </li>
+      
+      <li><iframe src="https://ghbtns.com/github-btn.html?user=eggjs&repo=egg&type=star&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe></li>
+    </ul>
+    <a id="mobileTrigger" href="#" class="mobile-trigger">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </a>
+  </header>
+</div>
+  <div id="container" class="container">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>egg-logrotator</h1>
+    <p><a href="https://npmjs.org/package/egg-logrotator" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/egg-logrotator.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://travis-ci.org/eggjs/egg-logrotator" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/eggjs/egg-logrotator.svg?style=flat-square" alt="build status"></a>
+<a href="https://codecov.io/github/eggjs/egg-logrotator?branch=master" target="_blank" rel="noopener"><img src="https://img.shields.io/codecov/c/github/eggjs/egg-logrotator.svg?style=flat-square" alt="Test coverage"></a>
+<a href="https://david-dm.org/eggjs/egg-logrotator" target="_blank" rel="noopener"><img src="https://img.shields.io/david/eggjs/egg-logrotator.svg?style=flat-square" alt="David deps"></a>
+<a href="https://snyk.io/test/npm/egg-logrotator" target="_blank" rel="noopener"><img src="https://snyk.io/test/npm/egg-logrotator/badge.svg?style=flat-square" alt="Known Vulnerabilities"></a>
+<a href="https://npmjs.org/package/egg-logrotator" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/egg-logrotator.svg?style=flat-square" alt="npm download"></a></p>
+<p>LogRotator for egg. Rotate all file of <code>app.loggers</code> by default</p>
+<h2 id="install"><a class="markdown-anchor" href="#install">#</a> Install</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm i egg-logrotator</span><br></pre></td></tr></table></figure>
+<h2 id="usage"><a class="markdown-anchor" href="#usage">#</a> Usage</h2>
+<ul>
+<li><code>plugin.js</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">exports.logrotator = &#123;</span><br><span class="line">  enable: <span class="literal">true</span>,</span><br><span class="line">  package: <span class="string">'egg-logrotator'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>config.default.js</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// if any files need rotate by file size, config here</span></span><br><span class="line">exports.logrotator = &#123;</span><br><span class="line">  filesRotateByHour: [],           <span class="comment">// list of files that will be rotated by hour</span></span><br><span class="line">  hourDelimiter: <span class="string">'-'</span>,              <span class="comment">// rotate the file by hour use specified delimiter</span></span><br><span class="line">  filesRotateBySize: [],           <span class="comment">// list of files that will be rotated by size</span></span><br><span class="line">  maxFileSize: <span class="number">50</span> * <span class="number">1024</span> * <span class="number">1024</span>,   <span class="comment">// Max file size to judge if any file need rotate</span></span><br><span class="line">  maxFiles: <span class="number">10</span>,                    <span class="comment">// pieces rotate by size</span></span><br><span class="line">  rotateDuration: <span class="number">60000</span>,           <span class="comment">// time interval to judge if any file need rotate</span></span><br><span class="line">  maxDays: <span class="number">31</span>,                     <span class="comment">// keep max days log files, default is `31`. Set `0` to keep all logs</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="feature"><a class="markdown-anchor" href="#feature">#</a> Feature</h2>
+<p>By default, LogRotator will rotate all files of <code>app.loggers</code> at 00:00 everyday, the format is <code>.log.YYYY-MM-DD</code> (<code>egg-web.log.2016-09-30</code>).</p>
+<h3 id="by-size"><a class="markdown-anchor" href="#by-size">#</a> By Size</h3>
+<p>Rotate by size with config <code>filesRotateBySize</code>. when the file size is greater than <code>maxFileSize</code>, it will rename to <code>.log.1</code>.</p>
+<p>If the file you renamed to is exists, it will increment by 1 (<code>.log.1</code> -&gt; <code>.log.2</code>), until <code>maxFiles</code>. if it reaches the <code>maxFiles</code>, then overwrite <code>.log.${maxFiles}</code>.</p>
+<p>Files in <code>filesRotateBySize</code> won't be rotated by day.</p>
+<h3 id="by-hour"><a class="markdown-anchor" href="#by-hour">#</a> By Hour</h3>
+<p>Rotate by hour with config <code>filesRotateByHour</code>. rotate the file at 00 every hour, the format is <code>.log.YYYY-MM-DD-HH</code>.</p>
+<p>Files in <code>filesRotateByHour</code> won't be rotated by day.</p>
+<h2 id="customize"><a class="markdown-anchor" href="#customize">#</a> Customize</h2>
+<p>You can use <code>app.LogRotator</code> to customize.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// app/schedule/custom.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> rotator = getRotator(app);</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// https://github.com/eggjs/egg-schedule</span></span><br><span class="line">    schedule: &#123;</span><br><span class="line">      type: <span class="string">'worker'</span>, <span class="comment">// only one worker run this task</span></span><br><span class="line">      cron: <span class="string">'10 * * * *'</span>, <span class="comment">// custom cron, or use interval</span></span><br><span class="line">    &#125;,</span><br><span class="line">    * task() &#123;</span><br><span class="line">      <span class="keyword">yield</span> rotator.rotate();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRotator</span>(<span class="params">app</span>) </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">CustomRotator</span> <span class="keyword">extends</span> <span class="title">app</span>.<span class="title">LogRotator</span> </span>&#123;</span><br><span class="line">    <span class="comment">// return map that contains a pair of srcPath and targetPath</span></span><br><span class="line">    <span class="comment">// LogRotator will rename ksrcPath to targetPath</span></span><br><span class="line">    * getRotateFiles() &#123;</span><br><span class="line">      <span class="keyword">const</span> files = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">      <span class="keyword">const</span> srcPath = <span class="string">'/home/admin/foo.log'</span>;</span><br><span class="line">      <span class="keyword">const</span> targetPath = <span class="string">'/home/admin/foo.log.2016.09.30'</span>;</span><br><span class="line">      files.set(srcPath, &#123; srcPath, targetPath &#125;);</span><br><span class="line">      <span class="keyword">return</span> files;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> CustomRotator(&#123; app &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Define a method called <code>getRotateFiles</code>, return a map contains a pair of srcPath and targetPath.</p>
+<h2 id="questions-suggestions"><a class="markdown-anchor" href="#questions-suggestions">#</a> Questions &amp; Suggestions</h2>
+<p>Please open an issue <a href="https://github.com/eggjs/egg/issues" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="license"><a class="markdown-anchor" href="#license">#</a> License</h2>
+<p><a href="https://github.com/eggjs/egg-logrotator/blob/master/LICENSE" target="_blank" rel="noopener">MIT</a></p>
+
+  </article>
+  <aside id="mobileAside" class="toc">
+  <div class="mobile-menu">
+    <ul>
+      
+      
+      
+        <li class="translations">
+          <a class="nav-link">header.translations</a>
+          <span class="arrow"></span><ul id="dropdownContent" class="dropdown-content"><li><a id="zh-cn" href="/zh-cn/en/plugins/logrotator.html" style="color: #22ab28">中文</a></li><li><a id="en" href="/en/en/plugins/logrotator.html" >English</a></li></ul>
+        </li>
+      
+    </ul>
+  </div>
+  <dl><dt id="title-Intro" style="cursor: pointer;" class="aside-title">Intro<a id="collapse-icon-Intro" class="icon opend"></a></dt><dd id=panel-Intro><ul><li><a href="/zh-cn/intro/index.html" class="menu-link">What is Egg</a></li></ul></dd></dl>
+</aside>
+<script>
+var mobileTrigger = document.getElementById('mobileTrigger');
+var mobileAside = document.getElementById('mobileAside');
+
+var expandMenu = function(title) {
+  // handle icon
+  const collapseIcon = document.getElementById('collapse-icon-' + title);
+  if (collapseIcon) {
+    collapseIcon.className = 'icon opend';
+  }
+  // handle panelEle
+  const panelEle = document.getElementById('panel-' + title);
+  if (panelEle) {
+    panelEle.className = '';
+  }
+}
+
+var collapseMenu = function(title) {
+  // handle icon
+  const collapseIcon = document.getElementById('collapse-icon-' + title);
+  if (collapseIcon) {
+    collapseIcon.className = 'icon closed';
+  }
+  // handle panelEle
+  const panelEle = document.getElementById('panel-' + title);
+  if (panelEle) {
+    panelEle.className = 'aside-panel-hidden';
+  }
+}
+
+mobileAside.onclick = function(e) {
+  const targetId = e.target.id;
+  if (targetId && (targetId.indexOf('title-') > -1 || targetId.indexOf('collapse-icon-') > -1)) {
+    const title = targetId.replace('title-', '').replace('collapse-icon-', '');
+    try { 
+      // the the browser may have no localStroage or JSON.parse may throw exception.
+      const menuInfo = JSON.parse(window.localStorage.getItem('menuInfo'));
+        
+      // current menu status
+      const curClosed = menuInfo[title] ? menuInfo[title].closed : false; // default false
+
+      // change UI
+      curClosed ? expandMenu(title) : collapseMenu(title);
+
+      // save menuInfo to localStorage
+      menuInfo[title] = { closed: !curClosed } // opposite
+      window.localStorage.setItem('menuInfo', JSON.stringify(menuInfo));
+    } catch (e) {}
+  }
+};
+
+mobileTrigger.onclick = function(e) {
+  e.preventDefault();
+  if (mobileAside.className.indexOf('mobile-show') === -1) {
+    mobileAside.className += ' mobile-show';
+  } else {
+    mobileAside.className = 'toc';
+  }
+};
+
+(function() {
+  // save data to localStorage because the page will refresh when user change the url.
+  let menuInfo;
+  try { 
+    // the the browser may have no localStroage or JSON.parse may throw exception.
+    menuInfo = JSON.parse(window.localStorage.getItem('menuInfo'));
+    if (!menuInfo) {
+      menuInfo = {};
+      window.localStorage.setItem('menuInfo', JSON.stringify(menuInfo));
+    }
+  } catch (e) {
+    menuInfo = {}; // default {}
+  }
+
+  for (const title in menuInfo) {
+    if (menuInfo[title] && menuInfo[title].closed) { // menu in closed status.
+      collapseMenu(title);
+    } else {
+      expandMenu(title);
+    }
+  }
+
+  // highlight menu
+  const pathname = window.location.pathname;
+  const selector = `a[href="${pathname}"].menu-link,a[href="${pathname}index.html"].menu-link`;
+  const menuItem = mobileAside.querySelector(selector);
+  if (menuItem) { menuItem.className += ' highlight'; }
+})();
+</script>
+
+</div>
+
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+<script>
+docsearch({
+  apiKey: '1561de31a86f79507ea00cdb54ce647c',
+  indexName: 'eggjs',
+  inputSelector: '#search-query',
+});
+</script>
+<div class="cnzz">
+<script src="https://s11.cnzz.com/z_stat.php?id=1261142226&web_id=1261142226" language="JavaScript"></script>
+</div>
+
+</html>

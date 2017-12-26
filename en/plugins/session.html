@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <title>egg-session - index.slogan</title>
+  <meta charset="utf-8">
+  <meta name="description" content="index.description">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
+<link rel="stylesheet" href="/css/index.css">
+
+</head>
+<body>
+  <div class="nav" >
+  <header>
+    <a href="/zh-cn/" class="nav-logo leftpadding" alt="egg"><img src="https://zos.alipayobjects.com/rmsportal/VTcUYAaoKqXyHJbLAPyF.svg"></a>
+    <ul class="nav-item">
+      <li>
+        <form id="search-form">
+          <input type="text" id="search-query" class="search-query st-default-search-input">
+        </form>
+      </li>
+      
+      
+      
+        <li class="translations">
+          <a class="nav-link">header.translations</a>
+          <span class="arrow"></span><ul id="dropdownContent" class="dropdown-content"><li><a id="zh-cn" href="/zh-cn/en/plugins/session.html" style="color: #22ab28">中文</a></li><li><a id="en" href="/en/en/plugins/session.html" >English</a></li></ul>
+        </li>
+      
+      <li><iframe src="https://ghbtns.com/github-btn.html?user=eggjs&repo=egg&type=star&count=true" frameborder="0" scrolling="0" width="150px" height="20px"></iframe></li>
+    </ul>
+    <a id="mobileTrigger" href="#" class="mobile-trigger">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </a>
+  </header>
+</div>
+  <div id="container" class="container">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>egg-session</h1>
+    <p><a href="https://npmjs.org/package/egg-session" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/v/egg-session.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://travis-ci.org/eggjs/egg-session" target="_blank" rel="noopener"><img src="https://img.shields.io/travis/eggjs/egg-session.svg?style=flat-square" alt="build status"></a>
+<a href="https://codecov.io/github/eggjs/egg-session?branch=master" target="_blank" rel="noopener"><img src="https://codecov.io/github/eggjs/egg-session/coverage.svg?branch=master" alt="Test coverage"></a>
+<a href="https://david-dm.org/eggjs/egg-session" target="_blank" rel="noopener"><img src="https://img.shields.io/david/eggjs/egg-session.svg?style=flat-square" alt="David deps"></a>
+<a href="https://snyk.io/test/npm/egg-session" target="_blank" rel="noopener"><img src="https://snyk.io/test/npm/egg-session/badge.svg?style=flat-square" alt="Known Vulnerabilities"></a>
+<a href="https://npmjs.org/package/egg-session" target="_blank" rel="noopener"><img src="https://img.shields.io/npm/dm/egg-session.svg?style=flat-square" alt="npm download"></a></p>
+<p>Session plugin for egg, based on <a href="https://github.com/koajs/session" target="_blank" rel="noopener">koa-session</a>.</p>
+<h2 id="install"><a class="markdown-anchor" href="#install">#</a> Install</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm i egg-session --save</span><br></pre></td></tr></table></figure>
+<h2 id="usage"><a class="markdown-anchor" href="#usage">#</a> Usage</h2>
+<p>egg-session is a built-in plugin in egg and enabled by default.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// &#123;app_root&#125;/config/plugin.js</span></span><br><span class="line">exports.session = <span class="literal">true</span>; <span class="comment">// enable by default</span></span><br></pre></td></tr></table></figure>
+<h3 id="external-store"><a class="markdown-anchor" href="#external-store">#</a> External Store</h3>
+<p>egg-session support external store, you can store your sessions in redis, memcached or other databases.</p>
+<p>For example, if you want to store session in redis, you must:</p>
+<ol>
+<li>Dependent <a href="https://github.com/eggjs/egg-redis" target="_blank" rel="noopener">egg-redis</a></li>
+</ol>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i --save egg-redis</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Import egg-redis as a plugin and set the configuration</li>
+</ol>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/plugin.js</span></span><br><span class="line">exports.redis = &#123;</span><br><span class="line">  enable: <span class="literal">true</span>,</span><br><span class="line">  package: <span class="string">'egg-redis'</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// config/config.default.js</span></span><br><span class="line">exports.redis = &#123;</span><br><span class="line">  <span class="comment">// your redis configurations</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Implement a session store with redis</li>
+</ol>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// set redis session store</span></span><br><span class="line">  <span class="comment">// session store must have 3 methods</span></span><br><span class="line">  <span class="comment">// define sessionStore in `app.js` so you can access `app.redis`</span></span><br><span class="line">  app.sessionStore = &#123;</span><br><span class="line">    * get(key) &#123;</span><br><span class="line">      <span class="keyword">const</span> res = <span class="keyword">yield</span> app.redis.get(key);</span><br><span class="line">      <span class="keyword">if</span> (!res) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(res);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    * set(key, value, maxAge) &#123;</span><br><span class="line">      <span class="comment">// maxAge not present means session cookies</span></span><br><span class="line">      <span class="comment">// we can't exactly know the maxAge and just set an appropriate value like one day</span></span><br><span class="line">      <span class="keyword">if</span> (!maxAge) maxAge = <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>;</span><br><span class="line">      value = <span class="built_in">JSON</span>.stringify(value);</span><br><span class="line">      <span class="keyword">yield</span> app.redis.set(key, value, <span class="string">'PX'</span>, maxAge);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    * destroy(key) &#123;</span><br><span class="line">      <span class="keyword">yield</span> app.redis.del(key);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// session store can be a session store class</span></span><br><span class="line">  <span class="comment">// app.sessionStore = class Store &#123;</span></span><br><span class="line">  <span class="comment">//   constructor(app) &#123;</span></span><br><span class="line">  <span class="comment">//     this.app = app;</span></span><br><span class="line">  <span class="comment">//   &#125;</span></span><br><span class="line">  <span class="comment">//   * get() &#123;&#125;</span></span><br><span class="line">  <span class="comment">//   * set() &#123;&#125;</span></span><br><span class="line">  <span class="comment">//   * destroy() &#123;&#125;</span></span><br><span class="line">  <span class="comment">// &#125;;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Once you use external session store, session is strong dependent on your external store, you can't access session if your external store is down. <strong>Use external session stores only if necessary, avoid use session as a cache, keep session lean and stored by cookie!</strong></p>
+<h2 id="configuration"><a class="markdown-anchor" href="#configuration">#</a> Configuration</h2>
+<p>Support all configurations in <a href="https://github.com/koajs/session" target="_blank" rel="noopener">koa-session</a>.</p>
+<p><a href="https://github.com/eggjs/egg-session/blob/master/config/config.default.js" target="_blank" rel="noopener">View the default configurations</a></p>
+<h2 id="questions-suggestions"><a class="markdown-anchor" href="#questions-suggestions">#</a> Questions &amp; Suggestions</h2>
+<p>Please open an issue <a href="https://github.com/eggjs/egg/issues" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="license"><a class="markdown-anchor" href="#license">#</a> License</h2>
+<p><a href="https://github.com/eggjs/egg-session/blob/master/LICENSE" target="_blank" rel="noopener">MIT</a></p>
+
+  </article>
+  <aside id="mobileAside" class="toc">
+  <div class="mobile-menu">
+    <ul>
+      
+      
+      
+        <li class="translations">
+          <a class="nav-link">header.translations</a>
+          <span class="arrow"></span><ul id="dropdownContent" class="dropdown-content"><li><a id="zh-cn" href="/zh-cn/en/plugins/session.html" style="color: #22ab28">中文</a></li><li><a id="en" href="/en/en/plugins/session.html" >English</a></li></ul>
+        </li>
+      
+    </ul>
+  </div>
+  <dl><dt id="title-Intro" style="cursor: pointer;" class="aside-title">Intro<a id="collapse-icon-Intro" class="icon opend"></a></dt><dd id=panel-Intro><ul><li><a href="/zh-cn/intro/index.html" class="menu-link">What is Egg</a></li></ul></dd></dl>
+</aside>
+<script>
+var mobileTrigger = document.getElementById('mobileTrigger');
+var mobileAside = document.getElementById('mobileAside');
+
+var expandMenu = function(title) {
+  // handle icon
+  const collapseIcon = document.getElementById('collapse-icon-' + title);
+  if (collapseIcon) {
+    collapseIcon.className = 'icon opend';
+  }
+  // handle panelEle
+  const panelEle = document.getElementById('panel-' + title);
+  if (panelEle) {
+    panelEle.className = '';
+  }
+}
+
+var collapseMenu = function(title) {
+  // handle icon
+  const collapseIcon = document.getElementById('collapse-icon-' + title);
+  if (collapseIcon) {
+    collapseIcon.className = 'icon closed';
+  }
+  // handle panelEle
+  const panelEle = document.getElementById('panel-' + title);
+  if (panelEle) {
+    panelEle.className = 'aside-panel-hidden';
+  }
+}
+
+mobileAside.onclick = function(e) {
+  const targetId = e.target.id;
+  if (targetId && (targetId.indexOf('title-') > -1 || targetId.indexOf('collapse-icon-') > -1)) {
+    const title = targetId.replace('title-', '').replace('collapse-icon-', '');
+    try { 
+      // the the browser may have no localStroage or JSON.parse may throw exception.
+      const menuInfo = JSON.parse(window.localStorage.getItem('menuInfo'));
+        
+      // current menu status
+      const curClosed = menuInfo[title] ? menuInfo[title].closed : false; // default false
+
+      // change UI
+      curClosed ? expandMenu(title) : collapseMenu(title);
+
+      // save menuInfo to localStorage
+      menuInfo[title] = { closed: !curClosed } // opposite
+      window.localStorage.setItem('menuInfo', JSON.stringify(menuInfo));
+    } catch (e) {}
+  }
+};
+
+mobileTrigger.onclick = function(e) {
+  e.preventDefault();
+  if (mobileAside.className.indexOf('mobile-show') === -1) {
+    mobileAside.className += ' mobile-show';
+  } else {
+    mobileAside.className = 'toc';
+  }
+};
+
+(function() {
+  // save data to localStorage because the page will refresh when user change the url.
+  let menuInfo;
+  try { 
+    // the the browser may have no localStroage or JSON.parse may throw exception.
+    menuInfo = JSON.parse(window.localStorage.getItem('menuInfo'));
+    if (!menuInfo) {
+      menuInfo = {};
+      window.localStorage.setItem('menuInfo', JSON.stringify(menuInfo));
+    }
+  } catch (e) {
+    menuInfo = {}; // default {}
+  }
+
+  for (const title in menuInfo) {
+    if (menuInfo[title] && menuInfo[title].closed) { // menu in closed status.
+      collapseMenu(title);
+    } else {
+      expandMenu(title);
+    }
+  }
+
+  // highlight menu
+  const pathname = window.location.pathname;
+  const selector = `a[href="${pathname}"].menu-link,a[href="${pathname}index.html"].menu-link`;
+  const menuItem = mobileAside.querySelector(selector);
+  if (menuItem) { menuItem.className += ' highlight'; }
+})();
+</script>
+
+</div>
+
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
+<script>
+docsearch({
+  apiKey: '1561de31a86f79507ea00cdb54ce647c',
+  indexName: 'eggjs',
+  inputSelector: '#search-query',
+});
+</script>
+<div class="cnzz">
+<script src="https://s11.cnzz.com/z_stat.php?id=1261142226&web_id=1261142226" language="JavaScript"></script>
+</div>
+
+</html>
